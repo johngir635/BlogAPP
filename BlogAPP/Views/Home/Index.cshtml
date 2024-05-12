@@ -1,0 +1,73 @@
+﻿@model List<BlogPost>
+
+    <title>Blog</title>
+
+    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#createBlogModal">
+        Create New Blog Post
+    </button>
+
+@foreach (var post in Model)
+{
+    <div class="card text-center mb-3">
+        <div class="card-header">
+            @post.Title
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">@post.Author</h5>
+            <p class="card-text">@post.Content</p>
+            <!-- Add any additional content you want to display -->
+            <a href="@Url.Action("Edit", "Home", new { id = post.Id })" class="btn btn-primary btn-sm ">Edit</a>
+            <a href="@Url.Action("Delete", "Home", new { id = post.Id })" class="btn btn-danger btn-sm ">Delete</a>
+        </div>
+        <div class="card-footer text-muted">
+            <div class="row">
+                <div class="col-6">
+            Posted on @post.CreatedAt
+
+                </div>
+                <div class="col-6">
+
+            Post Edited on @post.UpdatedAt
+                </div>
+
+            </div>
+        </div>
+    </div>
+}
+<div class="modal fade" id="createBlogModal" tabindex="-1" role="dialog" aria-labelledby="createBlogModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createBlogModalLabel">Create New Blog Post</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Form to create a new blog post -->
+                <form id="createBlogForm" asp-controller="Home" asp-action="CreateBlog">
+                    <div class="form-group">
+                        <label for="title">Title</label>
+                        <input type="text" class="form-control" name="Title" id="title" placeholder="Enter title">
+                    </div>
+                    <div class="form-group">
+                        <label for="author">Author</label>
+                        <input type="text" class="form-control" name="Author" id="author" placeholder="Enter author name">
+                    </div>
+                    <div class="form-group">
+                        <label for="content">Content</label>
+                        <textarea class="form-control" id="content" name="Content" rows="5" placeholder="Enter blog content"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Create Post</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
